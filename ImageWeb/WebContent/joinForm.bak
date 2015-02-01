@@ -1,0 +1,75 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="join.js"></script>
+</head>
+<body>
+
+
+<form name=joinForm action = "joinProcess.jsp" method="post">
+<table width="500" border="0" cellpadding="5"  cellspacing="5" align="center"> 
+	<tr>
+		<td colspan="2" align=center>
+			<b><font size=5>JOIN</font></b>
+		</td>
+	</tr>
+	<tr>
+		<td width=100>사용자ID</td>
+		<td><input type="text" name="member_id">
+		<input type="button" value="ID 중복확인" OnClick="idCheck(this.form.member_id.value)"></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><font size="-1.5">※ 영문자, 숫자, _만 입력 가능.</font></td>
+	</tr>
+	<tr>
+		<td width=100>비밀번호</td>
+		<td><input type="password" name="password"></td>
+	</tr>
+	<tr>
+		<td width=100>비밀번호 확인</td>
+		<td><input type="password" name="repassword"></td>
+	</tr>
+	<tr>
+		<td width=100>이름</td>
+		<td><input type="text" name="name"></td>
+	</tr>
+	<tr>
+    	<td >주소</td>
+		<td width="430">도,광역(특별)시 입력: <input name="province" type="text" style="width:56px;"  /></td>
+	</tr>
+	<tr>
+		<td></td>	
+		<td width="430">시,군 입력: <input type="text" name="town" style="width:56px" /></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td colspan="2">나머지 주소입력: <input name="address" type="text" style="width:310px;" /></td>
+	</tr>
+	<tr>
+		<td width=100>전화번호</td>
+		<td><input type="text" name="phone_number"></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><font size="-1.5">※  -없이 입력</font></td>
+	</tr>
+	<tr>
+		<td width=100>E-mail</td>
+		<td><input type="text" name="mail" size="30"></td>
+	</tr>
+	<tr>
+		<td colspan="2" align = right>
+			<input type="button" value="등록" onClick="inputCheck()"></td>
+	</tr>
+
+</table>
+</form>
+
+</body>
+</html>

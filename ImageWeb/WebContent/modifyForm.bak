@@ -1,0 +1,93 @@
+<%@page import="ShoppingSite.HomeShoppingDBCP"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
+<%@ page import = "ShoppingSite.MemberEntity" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>회원정보수정</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="modifyForm.js"></script>
+</head>
+<body>
+<jsp:useBean id="loginfo" class="ShoppingSite.MemberEntity" scope="session"/>
+<jsp:useBean id="loginfodbcp" class="ShoppingSite.HomeShoppingDBCP" scope="page" />
+
+
+
+
+<%
+String id = loginfo.getMember_id();
+MemberEntity mem = loginfodbcp.selectMember(id);
+%>	
+	
+<form name="modifyForm" action = "modifyProc.jsp" method="post">
+<table width="500" border="0" cellpadding="5"  cellspacing="5" align="center"> 
+	<tr>
+		<td colspan="2" align=center>
+			<b><font size=+5> 회원 정보 수정 </font></b>
+		</td>
+	</tr>
+	<tr>
+		<td width=100>사용자ID</td>
+		<td><font color="blue"><%=mem.getMember_id() %></font> </td>
+		
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td width=100>비밀번호</td>
+		<td><input type="password" name="password" value=""> </td>
+	</tr>
+	<tr>
+		<td width=100>비밀번호 확인</td>
+		<td><input type="password" name="repassword" value=""></td>
+	</tr>
+	<tr>
+		<td width=100>이름</td>
+		<td><input type="text" name="name" value="<%=mem.getName()%>"></td>
+	</tr>
+	<tr>
+    	<td >주소</td>
+		<td width="430">도,광역(특별)시 입력: <input name="province" type="text" style="width:56px;" value="<%=mem.getProvince() %>" /></td>
+	</tr>
+	<tr>
+		<td></td>	
+		<td width="430">시,군 입력: <input type="text" name="town" style="width:56px" value="<%=mem.getTown()%>"/></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td colspan="2">나머지 주소입력: <input name="address" type="text" style="width:310px;" value="<%=mem.getAddress() %>" /></td>
+			</tr>
+		
+	<tr>
+		<td width=100>전화번호</td>
+		<td><input type="text" name="phone_number" value="<%=mem.getPhone_number()%>"></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><font size="-1.5">※  -없이 입력</font></td>
+	</tr>
+	<tr>
+		<td width=100>E-mail</td>
+		<td><input type="text" name="mail" size="30" value="<%=mem.getMail()%>"></td>
+	</tr>
+	
+	
+	
+	
+	<tr>
+		<td colspan="2" align = right>
+			<input type="button" value="수 정" onClick="inputCheck()">
+		  <td><input type="button" value="취 소" onclick="location.href='index.jsp'"></td>			
+	</tr>
+
+</table>
+</form>
+</body>
+
+</html>

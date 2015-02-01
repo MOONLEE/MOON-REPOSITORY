@@ -1,0 +1,86 @@
+<%@page import="ShoppingSite.HomeShoppingDBCP"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>cart</title>
+<meta name="generator" content="Namo WebEditor(Trial)">
+<script src="cart.js"></script>
+</head>
+<body>
+<%@page import="ShoppingSite.CartBoardEntity,java.util.ArrayList" %>
+<jsp:useBean id="homeshoppingdbcp" class="ShoppingSite.HomeShoppingDBCP" scope="page" />
+<jsp:useBean id="loginfo" class="ShoppingSite.MemberEntity" scope="session"/>
+<%
+		request.setCharacterEncoding("euc-kr");
+%>
+
+<%
+		String member_id = loginfo.getMember_id();
+		ArrayList<CartBoardEntity> list = null;
+		list = homeshoppingdbcp.getProductsOfCart(member_id);
+		int count = list.size();
+		int totalPrice = 0;
+%>
+<form action="cartprocess.jsp" method="post" name="cartForm">
+<input type="hidden" name="menu" value="">
+<input type="hidden" name="product_id" value="">
+<input type="hidden" name="color" value="">
+<input type="hidden" name="size" value="">
+<table  width="465" border=2 style="background-color:white;" height="121">
+    <tr>
+        <th scope="col" width="106" height="20"><b>사진</b></th>
+        <th scope="col" width="74" height="20"><b>이름</b></th>
+        <th scope="col" width="56" height="20"><b>색상</b></th>
+        <th scope="col" width="67" height="20"><b>사이즈</b></th>
+        <th scope="col" width="53" height="20"><b>수량</b></th>
+        <th scope="col" width="67" height="20"><b>가격</b></th>
+            <th width="67" height="20">
+                <p align="center">삭제</p>
+            </th>
+    </tr>
+    <%
+   	if (count > 0){
+    	for(CartBoardEntity cbe : list){
+    		totalPrice += cbe.getAmount() * cbe.getPrice();
+    %>
+    <tr onmouseover="this.style.backgroundColor='SkyBlue'"
+    	onmouseout="this.style.backgroundColor='white'">
+        <td align=left width="106" height="84">
+            <p align="center"><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=cbe.getProduct_id()%>"><img src="GetProductImage?product_id=<%=cbe.getProduct_id()%>" width="103" height="83"></a></p>
+        </td>
+        <td align=left width="74" height="84">
+            <p align="center"><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=cbe.getProduct_id()%>"><b><%=cbe.getName() %></b></a></p>
+        </td>
+        <td align=left width="56" height="84">
+            <p align="center"><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=cbe.getProduct_id()%>"><b><%=cbe.getColor() %></b></a></p>
+        </td>
+        <td align=left width="67" height="84">
+            <p align="center"><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=cbe.getProduct_id()%>"><b><%=cbe.getSize() %></b></a></p>
+        </td>
+        <td align=left width="53" height="84">
+            <p align="center"><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=cbe.getProduct_id()%>"><b><%=cbe.getAmount() %></b></a></p>
+        </td>
+        <td align=left width="67" height="84">
+            <p align="center"><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=cbe.getProduct_id()%>"><b><%=cbe.getPrice() %></b></a></p>
+        </td>
+            <td width="67" height="84" align="left">
+                <p align="center"><input type="button" value="삭제" onclick="doDelete('<%=cbe.getProduct_id()%>','<%=cbe.getColor()%>','<%=cbe.getSize()%>')"></p>
+            </td>
+    </tr>
+    <%
+    	}
+    }
+	%>
+</table>
+<div>
+    <p align="center"><font color="black"><span style="font-size:18pt;">총 가격 :  <%=totalPrice%></span></font></p>
+</div>
+    <div>
+        <p align="center"><input type="image" src="images/button3.gif" onclick="doOrderInCart()"></p>
+    </div>
+</form>
+</body>
+</html>

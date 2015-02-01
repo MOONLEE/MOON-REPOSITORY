@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<%@page import="ShoppingSite.ProductEntity,java.util.ArrayList" %>
+<jsp:useBean id="loginfodbcp" class="ShoppingSite.HomeShoppingDBCP" scope="page" />
+<%
+		request.setCharacterEncoding("euc-kr");
+%>
+<%
+	
+		String type = "pants";
+		ArrayList<ProductEntity> list = null;
+		list = loginfodbcp.getListOfProduct(type);
+		
+		
+		int counter = list.size();
+		int row = 0;
+			
+%>
+<h1>바지다</h1>
+  <table  width="100%" border=2 align="center" style="background-color:white;">
+     <tr>
+       <th width="100" scope="col"><b>사진</b></th>
+       <th width="100" scope="col"><b>이름</b></th>
+       <th width="100" scope="col"><b>가격</b></th>
+    </tr>
+    <%
+    int i = 1;
+   	if (counter > 0){
+    	for(ProductEntity pe : list){
+    %>
+    <tr onmouseover="this.style.backgroundColor='SkyBlue'"
+    	onmouseout="this.style.backgroundColor='white'">
+       <td align=left><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=pe.getProduct_id()%>"><img src="GetProductImage?product_id=<%=pe.getProduct_id()%>" width="200" height="200"></a></td>
+       <td align=left><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=pe.getProduct_id()%>"><b><%=pe.getName() %></b></a></td>
+       <td align=left><a href="categoryprocess.jsp?menu=productInfomation&product_id=<%=pe.getProduct_id()%>"><b><%=pe.getPrice() %></b></a></td>
+    </tr>
+	<%
+    	}
+    }
+	%>
+	</table>
+</body>
+</html>
